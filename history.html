@@ -8,9 +8,21 @@
     <link rel="stylesheet" href="stylesheet.css" />
   </head>
   <body>
-    <h1 class="title">History</h1>
-    <a href="index.html"><button>Back</button></a>
-    <output class="history"></output>
-    <button class="clear">Clear</button>
+    <!-- Kopfbereich mit Titel und Back-Button -->
+    <header>
+      <h1 class="title">History</h1>
+      <a
+        href="index.html"
+        class="nav-button back"
+        aria-label="Back to calculator"
+        >Back</a
+      >
+    </header>
+
+    <!-- Hauptbereich mit dem Verlauf und Clear-Button -->
+    <main>
+      <output class="history"></output>
+      <button type="button" class="clear">Clear</button>
+    </main>
   </body>
 </html>

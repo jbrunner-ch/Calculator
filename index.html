@@ -3,45 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- NEU: SEO Beschreibung -->
+    <meta
+      name="description"
+      content="A modern, responsive web calculator with a persistent history feature. Styled with Material You."
+    />
+
     <title>Calculator</title>
     <script src="main.js" defer></script>
     <link rel="stylesheet" href="stylesheet.css" />
   </head>
   <body>
-    <h1 class="title">Calculator Pro Pro Max</h1>
-    <a href="history.html"><button>History</button></a>
-    <label for="number1">Enter number one:</label>
-    <input
-      class="number1"
-      type="number"
-      name="number1"
-      min="1"
-      max="1000"
-      required
-    />
-    <label for="operation">Select the operation:</label>
-    <select class="operation" name="operation" id="operation">
-      <option value="+">＋</option>
-      <option value="-">−</option>
-      <option value="*">×</option>
-      <option value="/">÷</option>
-    </select>
+    <!-- NEU: Kopfbereich -->
+    <header>
+      <h1 class="title">Calculator</h1>
+      <!-- KORRIGIERT: Kein Button mehr im Link, stattdessen nur ein Link mit Klasse -->
+      <a
+        href="history.html"
+        class="nav-button"
+        aria-label="View calculation history"
+        >History</a
+      >
+    </header>
 
-    <label for="number2">Enter number two:</label>
-    <input
-      class="number2"
-      type="number"
-      name="number2"
-      min="1"
-      max="1000"
-      required
-    />
-    <label for="result">Result:</label>
-    <output class="output" type="result" name="result"></output>
+    <!-- NEU: Hauptinhalt -->
+    <main>
+      <form id="calculatorForm">
+        <label for="number1">Enter number 1:</label>
+        <input
+          class="number1"
+          type="number"
+          id="number1"
+          name="number1"
+          min="1"
+          max="1000"
+          required
+        />
 
-    <button class="calculate">Calculate</button>
-    <button class="clear">Clear</button>
+        <label for="operation">Select the operation:</label>
+        <select class="operation" name="operation" id="operation">
+          <option value="+">＋</option>
+          <option value="-">−</option>
+          <option value="*">×</option>
+          <option value="/">÷</option>
+        </select>
 
-    <p class="aiReference">UI by Gemini</p>
+        <label for="number2">Enter number 2:</label>
+        <input
+          class="number2"
+          type="number"
+          id="number2"
+          name="number2"
+          min="1"
+          max="1000"
+          required
+        />
+
+        <label for="result">Result:</label>
+        <!-- NEU: aria-live="polite" sagt dem Screenreader, dass er Änderungen hier vorlesen soll -->
+        <output
+          class="output"
+          id="result"
+          name="result"
+          aria-live="polite"
+        ></output>
+
+        <button type="submit" class="calculate">Calculate</button>
+        <button type="button" class="clear">Clear</button>
+      </form>
+    </main>
+
+    <!-- NEU: Fußzeile -->
+    <footer>
+      <p class="aiReference">UI by Gemini</p>
+    </footer>
   </body>
 </html>

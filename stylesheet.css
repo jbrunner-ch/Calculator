@@ -5,56 +5,48 @@
   padding: 0;
 }
 
-/* Wir nutzen HTML, um den Body auf großen Screens zu zentrieren */
+/* Mobile First: Echter Vollbildmodus ohne Ränder */
 html {
+  background-color: #1c1b1f;
   min-height: 100vh;
-  background-color: #141218; /* Dunkler Hintergrund für Desktop */
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-/* Der Body wird unser flexibles Calculator-Gehäuse */
 body {
   font-family: "Google Sans", "Product Sans", Roboto, system-ui, sans-serif;
   color: #e6e1e5;
-  background-color: #1c1b1f; /* Material You Surface Farbe */
+  background-color: #1c1b1f;
   width: 100%;
   min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Zwei Spalten */
-  gap: 16px;
-  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 24px;
   position: relative;
-  transition: all 0.3s ease; /* Weiche Übergänge */
 }
 
-/* --- RESPONSIVE DESKTOP/TABLET (Als schwebende Karte) --- */
-@media (min-width: 600px) {
-  body {
-    max-width: 480px;
-    min-height: auto;
-    border-radius: 32px; /* Runde Ecken für die Karte */
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    margin: 40px 20px;
-    padding: 40px 32px;
-  }
+/* ================================================= */
+/* --- KOPFBEREICH (Titel & Navigations-Buttons) --- */
+/* ================================================= */
+header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
 }
 
-/* --- History Button --- */
-/* Responsive platziert, klebt rechts oben im Grid */
-a[href="history.html"] {
-  grid-column: 1 / -1; /* Spannt über alle Spalten */
-  justify-self: end; /* Nach rechts schieben */
-  text-decoration: none;
-  margin-bottom: 8px;
+.title {
+  font-size: clamp(1.8rem, 6vw, 2.4rem);
+  font-weight: 400;
+  color: #d0bcff;
+  margin-bottom: 12px;
+  text-align: center;
+  letter-spacing: -0.5px;
 }
 
-a[href="history.html"] button {
+a.nav-button {
+  align-self: flex-end;
   background-color: #332d41;
   color: #e8def8;
-  border: none;
+  text-decoration: none;
   padding: 10px 20px;
   border-radius: 100px;
   font-weight: 500;
@@ -63,16 +55,41 @@ a[href="history.html"] button {
   transition:
     background-color 0.2s ease,
     transform 0.1s ease;
+  display: inline-block;
+  text-align: center;
 }
 
-a[href="history.html"] button:active {
+a.nav-button:active {
   background-color: #4a4458;
   transform: scale(0.95);
 }
 
-/* --- Layout für Formularelemente --- */
-/* Standardmäßig füllen Inputs, Selects und Output die ganze Breite */
-.title,
+a.nav-button.back {
+  align-self: flex-start;
+}
+
+/* ================================================= */
+/* --- HAUPTBEREICH & FORMULAR (Mobile Grid) ---     */
+/* ================================================= */
+main {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  /* Mobile: 8 Zeilen für die Felder, die 9. Zeile nimmt den GESAMTEN Restplatz ein */
+  grid-template-rows: repeat(8, max-content) 1fr;
+  column-gap: 16px;
+  row-gap: 8px;
+  flex-grow: 1;
+  margin: 0;
+  padding-bottom: 32px;
+}
+
 label,
 input,
 select,
@@ -80,47 +97,19 @@ output {
   grid-column: 1 / -1;
 }
 
-/* --- Custom Dropdown im Material You Design --- */
-select {
-  /* Das echte Material Design Pfeil-Icon (ausgefülltes Dreieck) */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath fill='%23cac4d0' d='M480-360 280-560h400L480-360Z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 16px top 50%;
-  background-size: 24px auto;
-  cursor: pointer;
-
-  /* Etwas mehr Platz rechts, damit der Text nicht in den Pfeil ragt */
-  padding-right: 48px;
-}
-
-/* Das ausgeklappte Menü stylen (funktioniert auf Android/Windows, iOS ignoriert dies teilweise) */
-select option {
-  background-color: #2b2930; /* Dunkler Material-Hintergrund */
-  color: #e6e1e5;
-  font-size: 1.1rem;
-  padding: 12px;
-}
-
-/* Responsive Titel-Schrift (passt sich dynamisch an) */
-.title {
-  font-size: clamp(1.8rem, 6vw, 2.4rem);
-  font-weight: 400;
-  color: #d0bcff;
-  margin-bottom: 16px;
-  text-align: center;
-  letter-spacing: -0.5px;
-}
-
-/* Labels */
 label {
   font-size: 0.95rem;
   font-weight: 500;
   color: #cac4d0;
-  margin-bottom: -8px;
-  padding-left: 4px;
+  padding-left: 8px;
+  margin-top: 16px; /* Großer Abstand zur vorherigen Feld-Gruppe (Mobile) */
 }
 
-/* --- Moderne Eingabe- & Ausgabefelder (Inputs, Select, Output) --- */
+label[for="number1"] {
+  margin-top: 0;
+}
+
+/* Felder massiv vergrößert für Mobile */
 input[type="number"],
 select,
 output {
@@ -128,8 +117,8 @@ output {
   color: #e6e1e5;
   border: none;
   border-radius: 20px;
-  padding: 18px 20px;
-  font-size: 1.1rem;
+  padding: 16px 20px;
+  font-size: 1.2rem;
   outline: none;
   transition:
     background-color 0.2s,
@@ -137,161 +126,103 @@ output {
   -webkit-appearance: none;
   appearance: none;
   width: 100%;
-
-  /* Wichtig für das Output-Feld, damit es nicht kollabiert */
   display: flex;
   align-items: center;
-  min-height: 58px;
+  min-height: 64px;
 }
 
-/* Fokus-Effekt (nur für Elemente, die man anklicken kann) */
 input[type="number"]:focus,
 select:focus {
   background-color: #332d41;
   box-shadow: 0 0 0 2px #d0bcff;
 }
 
-/* Custom Dropdown Pfeil für Select */
 select {
-  background-image: url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" width="292.4" height="292.4"><path fill="%23cac4d0" d="M287 69.4a17.6 17.6 0 0 0-13-5.4H18.4c-5 0-9.3 1.8-12.9 5.4A17.6 17.6 0 0 0 0 82.2c0 5 1.8 9.3 5.4 12.9l128 127.9c3.6 3.6 7.8 5.4 12.8 5.4s9.2-1.8 12.8-5.4L287 95c3.5-3.5 5.4-7.8 5.4-12.8 0-5-1.9-9.2-5.5-12.8z"/></svg>');
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24' viewBox='0 -960 960 960' width='24'%3E%3Cpath fill='%23cac4d0' d='M480-360 280-560h400L480-360Z'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
-  background-position: right 20px top 50%;
-  background-size: 0.8rem auto;
+  background-position: right 16px top 50%;
+  background-size: 28px auto;
   cursor: pointer;
+  padding-right: 48px;
 }
 
-/* Standard-Pfeile ausblenden bei Nummernfeldern */
+select option {
+  background-color: #2b2930;
+  color: #e6e1e5;
+  font-size: 1.1rem;
+  padding: 12px;
+}
+
 input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-/* --- Haupt-Buttons Unten (Calculate & Clear) --- */
-body > button {
+/* --- Haupt-Buttons Unten (Mobile) --- */
+form > button,
+main > button {
+  align-self: end; /* Mobile: Zwingt die Buttons ganz nach unten */
   border: none;
-  padding: 18px 16px;
+  padding: 16px 16px;
   border-radius: 100px;
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   font-weight: 500;
   cursor: pointer;
-  transition:
-    transform 0.1s ease,
-    opacity 0.2s ease;
-  margin-top: 12px;
+  transition: transform 0.1s ease;
+  min-height: 64px;
 }
 
-body > button:active {
+form > button:active,
+main > button:active {
   transform: scale(0.95);
 }
 
-/* Calculate Button */
-body > button:nth-of-type(1) {
+button.calculate {
   background-color: #d0bcff;
   color: #381e72;
 }
 
-/* Clear Button */
-body > button:nth-of-type(2) {
+button.clear {
   background-color: #ffb4ab;
   color: #690005;
 }
 
-/* --- RESPONSIVE BUTTON-LAYOUT --- */
-/* Auf normalen Handys und aufwärts: Nebeneinander */
-@media (min-width: 351px) {
-  body > button:nth-of-type(1) {
+@media (min-width: 351px) and (max-width: 599px) {
+  button.calculate {
     grid-column: 1 / 2;
   }
-  body > button:nth-of-type(2) {
+  button.clear {
     grid-column: 2 / 3;
   }
 }
 
-/* Auf SEHR schmalen Handys (z.B. iPhone SE): Untereinander */
 @media (max-width: 350px) {
-  body > button:nth-of-type(1),
-  body > button:nth-of-type(2) {
+  button.calculate,
+  button.clear {
     grid-column: 1 / -1;
-    margin-top: 8px;
+    margin-top: 12px;
   }
 }
 
-/* --- KI Hinweis (Unten Rechts) --- */
-.aiReference {
-  position: fixed;
-  bottom: 16px;
-  right: 16px;
-  font-size: 0.85rem;
-  color: #e8def8;
-  z-index: 1000;
-  background-color: rgba(28, 27, 31, 0.85);
-  padding: 6px 12px;
-  border-radius: 8px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  margin: 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
-/* Auf mobilen Geräten den KI Hinweis etwas unauffälliger platzieren */
-@media (max-width: 600px) {
-  .aiReference {
-    bottom: 8px;
-    right: 8px;
-    font-size: 0.75rem;
-    padding: 4px 8px;
-  }
-}
-
-/* ==================================================== */
-/* --- SPEZIFISCHES STYLING FÜR DIE HISTORY-SEITE --- */
-/* ==================================================== */
-
-/* Back-Button (ähnlich wie der History-Button, aber links) */
-a[href="index.html"] {
-  grid-column: 1 / -1;
-  justify-self: end; /* Oben links platzieren */
-  text-decoration: none;
-  margin-bottom: 8px;
-}
-
-a[href="index.html"] button {
-  background-color: #332d41;
-  color: #e8def8;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 100px;
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    transform 0.1s ease;
-}
-
-a[href="index.html"] button:active {
-  background-color: #4a4458;
-  transform: scale(0.95);
-}
-
-/* Das History Output-Feld - Groß und scrollbar für viele Einträge */
+/* ================================================= */
+/* --- HISTORY-SEITE SPEZIFISCHES STYLING ---        */
+/* ================================================= */
 output.history {
-  min-height: 250px; /* Extra hoch, um eine Liste anzuzeigen */
-  max-height: 400px;
-  align-items: flex-start; /* Text oben anheften statt mittig */
+  flex-grow: 1;
+  min-height: 200px;
+  max-height: none;
+  align-items: flex-start;
   justify-content: flex-start;
-  flex-direction: column; /* Einträge untereinander */
-  overflow-y: auto; /* Scrollbalken anzeigen, wenn es zu viele werden */
-  padding: 24px;
-  font-family:
-    "Courier New", Courier, monospace; /* Monospace sieht für Rechnungen besser aus */
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 20px;
+  font-family: "Courier New", Courier, monospace;
   font-size: 1.1rem;
   line-height: 1.8;
-  white-space: pre-wrap; /* Wichtig: Erkennt Zeilenumbrüche aus dem JavaScript (\n) */
+  white-space: pre-wrap;
 }
 
-/* Den Scrollbalken für das dunkle Design anpassen (Webkit Browser) */
 output.history::-webkit-scrollbar {
   width: 6px;
 }
@@ -303,10 +234,150 @@ output.history::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
-/* History Clear Button - greift NUR auf der History-Seite */
-output.history ~ button.clear {
-  grid-column: 1 / -1 !important;
-  background-color: #ffb4ab !important;
-  color: #690005 !important;
-  margin-top: 16px;
+output.history + button.clear {
+  width: 100%;
+  margin-top: 24px;
+}
+
+/* ================================================= */
+/* --- FOOTER & KI-Hinweis ---                       */
+/* ================================================= */
+.aiReference {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  font-size: 0.75rem;
+  color: #e8def8;
+  z-index: 1000;
+  background-color: rgba(28, 27, 31, 0.85);
+  padding: 4px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* ================================================= */
+/* --- DESKTOP-LAYOUT (2 SPALTEN ab 600px) ---       */
+/* ================================================= */
+@media (min-width: 600px) {
+  html {
+    background-color: #141218;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  body {
+    width: 100%;
+    max-width: 760px;
+    min-height: auto;
+    border-radius: 24px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: auto;
+    padding: 40px 48px;
+  }
+
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+
+  .title {
+    margin-bottom: 0;
+    text-align: left;
+  }
+
+  a.nav-button {
+    align-self: center;
+  }
+
+  form {
+    /* Zurück zum echten Desktop-Raster ohne 1fr Leerplatz */
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+    row-gap: 8px;
+    padding-bottom: 0;
+  }
+
+  /* Desktop Reset: Kleinere, elegantere Abstände und Felder */
+  label {
+    margin-top: 12px;
+    font-size: 0.9rem;
+  }
+
+  label[for="number1"],
+  label[for="result"] {
+    margin-top: 0;
+  }
+
+  input[type="number"],
+  select,
+  output {
+    min-height: 56px; /* Nicht mehr ganz so klobig wie auf dem Handy */
+    font-size: 1.1rem;
+    padding: 12px 16px;
+    border-radius: 16px;
+  }
+
+  /* Buttons werden auf Desktop passgenau zu den Feldern daneben gestreckt */
+  form > button,
+  main > button {
+    min-height: 56px;
+    margin: 0; /* Löscht den Abstand, der vorher das Layout ruiniert hat */
+    align-self: stretch; /* Füllt die Raster-Zelle perfekt aus */
+  }
+
+  /* --- LINKE SPALTE --- */
+  label[for="number1"] {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  input.number1 {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  label[for="operation"] {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  select.operation {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  label[for="number2"] {
+    grid-column: 1;
+    grid-row: 5;
+  }
+  input.number2 {
+    grid-column: 1;
+    grid-row: 6;
+  }
+
+  /* --- RECHTE SPALTE --- */
+  label[for="result"] {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  output.output {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  button.calculate {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  button.clear {
+    grid-column: 2;
+    grid-row: 6;
+  }
 }
