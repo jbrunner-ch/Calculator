@@ -14,3 +14,11 @@ A basic web calculator styled after Google's Material You design. It was built u
 
 Since this is a plain HTML/JS project, you don't need NodeJS or any build tools. 
 
+## Project Structure
+
+```text
+├── index.html       # Main calculator interface
+├── history.html     # Dedicated history view
+├── stylesheet.css   # All styles (Material You Design & Responsiveness)
+└── main.js          # Core logic for calculations and history management
+
