@@ -4,15 +4,15 @@ A basic web calculator styled after Google's Material You design. It was built u
 
 ## Features
 
-* **Material You UI:** Dark mode interface inspired by modern Android aesthetics.
-* **Basic Math:** Handles standard addition, subtraction, multiplication, and division.
-* **History Page:** Saves past calculations using the browser's `localStorage`, so they aren't lost when you reload the page.
-* **Keyboard Support:** You can press `Enter` to get the result.
-* **Responsive:** Works smoothly on both mobile phones and desktop screens.
+- **Material You UI:** Dark mode interface inspired by modern Android aesthetics.
+- **Basic Math:** Handles standard addition, subtraction, multiplication, and division.
+- **History Page:** Saves past calculations using the browser's `localStorage`, so they aren't lost when you reload the page.
+- **Keyboard Support:** You can press `Enter` to get the result.
+- **Responsive:** Works smoothly on both mobile phones and desktop screens.
 
 ## How to use
 
-Since this is a plain HTML/JS project, you don't need NodeJS or any build tools. 
+Since this is a plain HTML/JS project, you don't need NodeJS or any build tools.
 
 ## Project Structure
 
@@ -22,3 +22,6 @@ Since this is a plain HTML/JS project, you don't need NodeJS or any build tools.
 ├── stylesheet.css   # All styles (Material You Design & Responsiveness)
 └── main.js          # Core logic for calculations and history management
 
+
+**Built in cooperation with Gemini**
+```

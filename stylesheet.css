@@ -64,9 +64,9 @@ a.nav-button:active {
   transform: scale(0.95);
 }
 
-a.nav-button.back {
+/* a.nav-button.back {
   align-self: flex-start;
-}
+} */
 
 /* ================================================= */
 /* --- HAUPTBEREICH & FORMULAR (Mobile Grid) ---     */
